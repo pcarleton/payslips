@@ -1,0 +1,8 @@
+{
+  "name": "payslips",
+  "version": "0.1",
+  "description": "Parsing workday xlsx payslips into JSON",
+  "main": "index.js",
+  "author": "Paul Carleton",
+  "license": "MIT"
+}
