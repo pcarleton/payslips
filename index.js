@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import XLSX from "xlsx";
 
 const HEADERS = [
@@ -14,11 +16,16 @@ const HEADERS = [
 ];
 
 const normalize = (x) => {
+  if (x === undefined) {
+    return "";
+  }
   const result = x.replace(/ /g, "_").toLowerCase();
 
   if (result.startsWith("ca_vdi")) return "cavdi";
   if (result.startsWith("state")) return "state";
   if (result.startsWith("federal")) return "federal";
+  if (result.startsWith("oasdi")) return "oasdi";
+  if (result.startsWith("medicare")) return "medicare";
 
   return result;
 };
@@ -110,18 +117,29 @@ const parseSubTables = (ts) => {
   };
 
   const result = {};
-  Object.keys(lookup).map((k) => (result[k] = lookup[k](ts[k])));
+  Object.keys(lookup).map((k) => {
+    if (ts[k].length == 0) {
+      console.error(`Skipping ${k}, no rows found`);
+      return;
+    }
+    result[k] = lookup[k](ts[k]);
+  });
 
   return result;
 };
 
 const parsePayslip = (ps) => {
-  return parseSubTables(parseTables(ps));
+  const tables = parseTables(ps);
+  const parsed = parseSubTables(tables);
+  // Extract the "type" of payslip. This is pretty fragile.
+  parsed["label"] = ps[0][0].match(/\(.*\)/)[0].replace(/[\(\)]/g, "");
+  return parsed;
 };
 
-const workbook = XLSX.readFile(
-  "/Users/carleton/Downloads/Paul_Carleton_01_05_2020_(Regular)_-_Complete.xlsx"
-);
+console.error(`Parsing: ${process.argv[2]}`);
+const workbook = XLSX.readFile(process.argv[2]);
 const sheet = workbook.Sheets["Payroll Result Currency"];
-const result = XLSX.utils.sheet_to_json(sheet, { header: 1, range: "A1:F51" });
+const result = XLSX.utils.sheet_to_json(sheet, { header: 1, range: "A1:F70" });
+
+console.error(`Number of rows: ${result.length}`);
 console.log(`${JSON.stringify(parsePayslip(result), null, 4)}`);

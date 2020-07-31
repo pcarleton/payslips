@@ -63,7 +63,7 @@ module.exports = {
   },
   settings: {
     "import/resolver": "webpack",
-    "import/ignore": ["node_modules", "sail", "protoc_out"],
+    "import/ignore": ["node_modules"],
   },
   env: {
     browser: true,
