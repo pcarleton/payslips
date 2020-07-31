@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+// Functions for parsing Workday Pay Slips into a JSON format
 
 import XLSX from "xlsx";
 
@@ -136,10 +136,15 @@ const parsePayslip = (ps) => {
   return parsed;
 };
 
-console.error(`Parsing: ${process.argv[2]}`);
-const workbook = XLSX.readFile(process.argv[2]);
-const sheet = workbook.Sheets["Payroll Result Currency"];
-const result = XLSX.utils.sheet_to_json(sheet, { header: 1, range: "A1:F70" });
+export function parseSpreadsheet(spreadsheet) {
+  console.error(`Parsing: ${process.argv[2]}`);
+  const workbook = XLSX.readFile(spreadsheet);
+  const sheet = workbook.Sheets["Payroll Result Currency"];
+  const result = XLSX.utils.sheet_to_json(sheet, {
+    header: 1,
+    range: "A1:F70",
+  });
 
-console.error(`Number of rows: ${result.length}`);
-console.log(`${JSON.stringify(parsePayslip(result), null, 4)}`);
+  console.error(`Number of rows: ${result.length}`);
+  console.log(`${JSON.stringify(parsePayslip(result), null, 4)}`);
+}
