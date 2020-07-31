@@ -7,6 +7,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "esm": "^3.2.25",
     "xlsx": "^0.16.4"
   },
   "devDependencies": {
