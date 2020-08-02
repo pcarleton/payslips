@@ -10,6 +10,7 @@
     "esm": "^3.2.25",
     "xlsx": "^0.16.4"
   },
+  "exports": "./main.mjs",
   "devDependencies": {
     "eslint": "^7.5.0",
     "eslint-plugin-flow": "^2.29.1",
