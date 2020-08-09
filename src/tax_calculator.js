@@ -7,7 +7,7 @@ const TaxCalculator = {
     for (let i = table.length - 1; i >= 0; i -= 1) {
       const row = table[i];
       // Get the amount of untaxed income above this value
-      const applicable = Math.max(0, unTaxed - row.value);
+      const applicable = Math.max(0, unTaxed - row.start);
 
       taxDue += applicable * row.rate;
       unTaxed -= applicable;
