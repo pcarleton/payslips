@@ -1,19 +1,12 @@
 const TaxCalculator = {
   calculateTax: (sum, table) => {
-    // TODO: explain type of table
-    let taxDue = 0;
-    let unTaxed = sum;
-    // TODO: explain invariants
-    for (let i = table.length - 1; i >= 0; i -= 1) {
-      const row = table[i];
-      // Get the amount of untaxed income above this value
-      const applicable = Math.max(0, unTaxed - row.start);
+    const calcBracket = (b) => {
+      const upper = Math.min(sum, b.end || sum);
+      const amount = Math.max(0, upper - b.start);
+      return amount * b.rate;
+    };
 
-      taxDue += applicable * row.rate;
-      unTaxed -= applicable;
-    }
-
-    return taxDue;
+    return table.map(calcBracket).reduce((acc, x) => acc + x, 0);
   },
 
   makeTable: (rows) => {
