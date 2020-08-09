@@ -15,6 +15,16 @@ test("calculates a progressive tax", () => {
   expect(TaxCalculator.calculateTax(1100, table)).toBe(120);
 });
 
+test("calculates a flat tax with a cap", () => {
+  const table = TaxCalculator.makeTable([
+    [0, 0.1],
+    [1000, 0],
+  ]);
+  expect(TaxCalculator.calculateTax(500, table)).toBe(50);
+  expect(TaxCalculator.calculateTax(1000, table)).toBe(100);
+  expect(TaxCalculator.calculateTax(1100, table)).toBe(100);
+});
+
 test("creates a simple table", () => {
   const rows = [
     [0, 0.1],
