@@ -15,6 +15,21 @@ const TaxCalculator = {
 
     return taxDue;
   },
+
+  makeTable: (rows) => {
+    const table = [];
+    for (let i = 0; i < rows.length; i += 1) {
+      const row = rows[i];
+      const end = i + 1 < rows.length ? rows[i + 1][0] : undefined;
+      table.push({
+        start: row[0],
+        end: end,
+        rate: row[1],
+      });
+    }
+
+    return table;
+  },
 };
 
 export default TaxCalculator;
