@@ -16,7 +16,11 @@
     "eslint-plugin-flow": "^2.29.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.2.2",
     "prettier": "^2.0.5"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "bin": "bin/parse.js"
 }
