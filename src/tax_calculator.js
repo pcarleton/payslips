@@ -1,7 +1,9 @@
 const TaxCalculator = {
   calculateTax: (sum, table) => {
+    // TODO: explain type of table
     let taxDue = 0;
     let unTaxed = sum;
+    // TODO: explain invariants
     for (let i = table.length - 1; i >= 0; i -= 1) {
       const row = table[i];
       // Get the amount of untaxed income above this value
