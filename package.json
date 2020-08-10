@@ -20,7 +20,9 @@
     "prettier": "^2.0.5"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "tables": "node --experimental-vm-modules ./bin/tables.js"
+
   },
   "bin": "bin/parse.js"
 }

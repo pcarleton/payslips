@@ -1,5 +1,4 @@
-import { modelPaycheck } from "./src/model.js";
-import TaxCalculator from "./src/tax_calculator.js";
+import TaxCalculator from "../src/tax_calculator.js";
 
 test("calculates a simple tax", () => {
   expect(TaxCalculator.calculateTax(100, [{ start: 0, rate: 0.1 }])).toBe(10);
