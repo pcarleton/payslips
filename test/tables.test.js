@@ -1,4 +1,4 @@
-import { parseStateTable } from "../src/tables.js";
+import { parseStateTable, parseAlias, STATES } from "../src/tables.js";
 import XLSX from "xlsx";
 
 // Path relative to the root
@@ -17,6 +17,19 @@ const TEST_TABLE = (() => {
 
 test("parses test fixture", () => {
   expect(TEST_TABLE.length).toBeGreaterThan(0);
+});
+
+test("parse state aliases", () => {
+  expect(parseAlias("Ore.")).toStrictEqual({ state: STATES.OR, notes: [] });
+  expect(parseAlias("Utah (r, j)")).toStrictEqual({
+    state: STATES.UT,
+    notes: ["r", "j"],
+  });
+
+  expect(parseAlias("W.Va. (hh)")).toStrictEqual({
+    state: STATES.WV,
+    notes: ["hh"],
+  });
 });
 
 test("parses a taxfoundation.org table", () => {

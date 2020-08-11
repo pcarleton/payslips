@@ -132,17 +132,34 @@ export function parseStateTable(rows) {
   };
 }
 
+export function parseAlias(text) {
+  const pieces = text.split(" ");
+
+  const notes = [];
+  if (pieces.length > 1) {
+    pieces.slice(1).forEach((n) => notes.push(n.replace(/\(|,|\)/g, "")));
+  }
+  return {
+    state: STATE_ALIASES[pieces[0]],
+    notes,
+  };
+}
+
 export function parseSpreadsheet(spreadsheet) {
   console.error(`Parsing: ${process.argv[2]}`);
   const workbook = XLSX.readFile(spreadsheet);
   const sheet = workbook.Sheets["2019"];
   const result = XLSX.utils.sheet_to_json(sheet, {
     header: 1,
-    range: "A22:L31",
+    // range: "A22:L31", Calif.
+    range: "A1:L500",
   });
 
   console.error(`Number of rows: ${result.length}`);
-  console.log(JSON.stringify(result, null, 4));
+
+  const states = result.map((x) => x[0]).filter((x) => /^[A-Z]/.test(x));
+  console.log(states.join("\n"));
+  // console.log(JSON.stringify(result, null, 4));
 }
 
 const tables = {
