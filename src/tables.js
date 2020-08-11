@@ -132,10 +132,16 @@ export function parseStateTable(rows) {
     return [r[3], r[1]];
   });
 
+  // Married filer is the second set of columns
+  const married = rows.map((r) => {
+    return [r[6], r[4]];
+  });
+
   return {
     stateAlias: alias,
     state: STATE_ALIASES[alias],
     single,
+    married,
   };
 }
 

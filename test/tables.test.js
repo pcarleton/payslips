@@ -72,4 +72,10 @@ test("parses a taxfoundation.org table", () => {
     [8544, 0.02],
     [20255, 0.04],
   ]);
+
+  expect(result.married).toStrictEqual([
+    [0, 0.01],
+    [17088, 0.02],
+    [40510, 0.04],
+  ]);
 });
