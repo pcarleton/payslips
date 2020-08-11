@@ -1,4 +1,23 @@
 import { parseStateTable } from "../src/tables.js";
+import XLSX from "xlsx";
+
+// Path relative to the root
+const FIXTURE_PATH =
+  "./test/fixtures/State-Individual-Income-Tax-Rates-and-Brackets-for-2020.xlsx";
+
+const TEST_TABLE = (() => {
+  const workbook = XLSX.readFile(FIXTURE_PATH);
+  const sheet = workbook.Sheets["2019"];
+  return XLSX.utils.sheet_to_json(sheet, {
+    header: 1,
+    // range: "A22:L31", Calif.
+    range: "A1:L500",
+  });
+})();
+
+test("parses test fixture", () => {
+  expect(TEST_TABLE.length).toBeGreaterThan(0);
+});
 
 test("parses a taxfoundation.org table", () => {
   const input = [
