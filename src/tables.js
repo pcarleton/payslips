@@ -126,9 +126,16 @@ export const STATE_ALIASES = {
 
 export function parseStateTable(rows) {
   const alias = rows[0][0];
+
+  // Single filer is the first set of columns
+  const single = rows.map((r) => {
+    return [r[3], r[1]];
+  });
+
   return {
     stateAlias: alias,
     state: STATE_ALIASES[alias],
+    single,
   };
 }
 
