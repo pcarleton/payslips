@@ -70,7 +70,7 @@ export const STATES = Object.keys(STATE_NAMES).reduce((acc, s) => {
 
 //type State = $Keys<typeof states>;
 
-const STATE_ALIASES = {
+export const STATE_ALIASES = {
   "Ala.": STATES.AL,
   Alaska: STATES.AK,
   "Ariz.": STATES.AZ,

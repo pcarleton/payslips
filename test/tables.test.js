@@ -1,4 +1,9 @@
-import { parseStateTable, parseAlias, STATES } from "../src/tables.js";
+import {
+  parseStateTable,
+  parseAlias,
+  STATES,
+  STATE_ALIASES,
+} from "../src/tables.js";
 import XLSX from "xlsx";
 
 // Path relative to the root
@@ -19,6 +24,17 @@ test("parses test fixture", () => {
   expect(TEST_TABLE.length).toBeGreaterThan(0);
 });
 
+test("has all aliases", () => {
+  expect(Object.keys(STATE_ALIASES).length).toBe(51);
+  const candidates = TEST_TABLE.map((x) => x[0])
+    .filter((x) => x)
+    .map((x) => {
+      return parseAlias(x).state;
+    })
+    .filter((x) => x);
+
+  expect(candidates.length).toBe(51); // 50 states plus D.C.
+});
 test("parse state aliases", () => {
   expect(parseAlias("Ore.")).toStrictEqual({ state: STATES.OR, notes: [] });
   expect(parseAlias("Utah (r, j)")).toStrictEqual({
