@@ -16,5 +16,6 @@ test("parses a taxfoundation.org table", () => {
 
   const result = parseStateTable(input);
 
-  expect(result.stateLabel).toBe("Calif.");
+  expect(result.stateAlias).toBe("Calif.");
+  expect(result.state).toBe("CA");
 });

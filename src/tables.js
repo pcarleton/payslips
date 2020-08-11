@@ -5,10 +5,17 @@ export const states = {
   CA: "CA",
   OR: "OR",
 };
+//type State = $Keys<typeof states>;
+
+const STATE_ALIASES = {
+  "Calif.": states.CA,
+};
 
 export function parseStateTable(rows) {
+  const alias = rows[0][0];
   return {
-    stateLabel: rows[0][0],
+    stateAlias: alias,
+    state: STATE_ALIASES[alias],
   };
 }
 
@@ -24,8 +31,6 @@ export function parseSpreadsheet(spreadsheet) {
   console.error(`Number of rows: ${result.length}`);
   console.log(JSON.stringify(result, null, 4));
 }
-
-//type State = $Keys<typeof states>;
 
 const tables = {
   CA: {
