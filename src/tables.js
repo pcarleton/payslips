@@ -170,9 +170,17 @@ export function parseSpreadsheet(spreadsheet) {
 
   console.error(`Number of rows: ${result.length}`);
 
-  const states = result.map((x) => x[0]).filter((x) => /^[A-Z]/.test(x));
-  console.log(states.join("\n"));
-  // console.log(JSON.stringify(result, null, 4));
+  // const states = result.map((x) => x[0]).filter((x) => /^[A-Z]/.test(x));
+  // console.log(states.join("\n"));
+  console.log(JSON.stringify(result.slice(200, 400), null, 4));
+}
+
+export function splitStates(matrix) {
+  return {};
+}
+
+export function parseNotes(matrix) {
+  return {};
 }
 
 const tables = {
