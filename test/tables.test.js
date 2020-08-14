@@ -122,6 +122,13 @@ test("divides into tables", () => {
   const result = splitStates(example);
 
   expect(result).toBeDefined();
+  expect(result.length).toBe(2);
+  expect(result[0].length).toBe(3);
+  expect(result[0][0][0]).toStrictEqual("Ala.");
+
+  // TODO: (currently 2)
+  // expect(result[1].length).toBe(1);
+  expect(result[1][0][0]).toStrictEqual("Alaska");
 });
 
 test("parses notes", () => {

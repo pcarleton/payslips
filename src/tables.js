@@ -146,6 +146,9 @@ export function parseStateTable(rows) {
 }
 
 export function parseAlias(text) {
+  if (text === undefined || text === null) {
+    return {};
+  }
   const pieces = text.split(" ");
 
   const notes = [];
@@ -176,7 +179,40 @@ export function parseSpreadsheet(spreadsheet) {
 }
 
 export function splitStates(matrix) {
-  return {};
+  // What defines a state table?
+  // it starts with a state in 0,0, it ends with some
+  // text in 0,0 that's not a state, that's also not immediately in the
+  // next row.
+
+  // Start a single entry list when we see 0,0
+  // Push things on if we've got one started
+  // If not, keep walking
+  const result = matrix.reduce((states, row, idx) => {
+    const first = row[0];
+    const parsed = parseAlias(first);
+    const current = states[states.length - 1];
+
+    if (parsed.state !== undefined) {
+      // Start a new table
+      const table = [row];
+      states.push(table);
+    } else if (first === undefined) {
+      // Add to an existing table (simple)s
+      if (current !== undefined) {
+        current.push(row);
+      }
+    } else if (first) {
+      // Add to an existing table (2nd row notes)
+      if (current !== undefined && current.length === 1) {
+        current.push(row);
+      }
+    }
+    //TODO: Skip non /otes rows
+
+    return states;
+  }, []);
+
+  return result;
 }
 
 export function parseNotes(matrix) {
